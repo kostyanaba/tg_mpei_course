@@ -1,0 +1,14 @@
+//https://leetcode.com/problems/unique-paths/
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+      int x[m][n];  
+        for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(i==0||j==0) x[i][j]=1;
+            else x[i][j]=x[i][j-1]+x[i-1][j];
+        }
+    }
+    return x[m-1][n-1];
+}
+    };
