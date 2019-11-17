@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/course-schedule/
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> graph(numCourses,vector<int>());
+        vector<int> indegree(numCourses,0);
+
+        for (int i = 0; i < prerequisites.size(); ++i) {
+            ++indegree[prerequisites[i][0]];
+            graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
+        }
+
+        queue<int> myqueue;
+        for (int i = 0; i < indegree.size(); ++i)
+            if (!indegree[i])
+                myqueue.push(i);
+
+        int counter = 0;
+        while (!myqueue.empty()) {
+            int cur = myqueue.front();
+            myqueue.pop();
+            ++counter;
+
+            for (int i = 0; i < graph[cur].size(); ++i) 
+                if (--indegree[graph[cur][i]] == 0)
+                    myqueue.push(graph[cur][i]);
+        }
+
+        return numCourses == counter;
+    }
+};
