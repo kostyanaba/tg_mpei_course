@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/validate-binary-search-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    
+private:
+    void buildPostfix(TreeNode* root, vector<int>& ivec)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        
+        buildPostfix(root->left, ivec);
+        ivec.push_back(root->val);
+        buildPostfix(root->right, ivec);
+        
+        
+    }
+    
+    
+public:
+    bool isValidBST(TreeNode* root) {
+        
+        vector<int> ivec;
+        
+        buildPostfix(root, ivec);
+        
+        for(int i=1; i<ivec.size(); i++)
+        {
+            if(ivec[i-1] >= ivec[i])
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
