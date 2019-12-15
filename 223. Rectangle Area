@@ -1,0 +1,9 @@
+//https://leetcode.com/problems/rectangle-area/
+class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        if (A >= G || C <= E || D <= F || B >= H)
+            return abs((C-A)*(D-B))+abs((G-E)*(H-F));
+        return abs((C-A)*(D-B))-abs((min(G,C)-max(A,E))*(min(H,D)-max(B,F)))+abs((G-E)*(H-F)); 
+    }
+};
